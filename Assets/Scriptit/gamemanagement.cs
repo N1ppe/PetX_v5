@@ -51,7 +51,7 @@ public class gamemanagement : MonoBehaviour {
     float currentTime = 0;
     float normalizedValue;
     public Vector3 startPosition, endPosition;
-    public GameObject blockToMoveUp;
+    public GameObject blockToMoveUp,nightSky;
     IEnumerator LerpObject()
     {
         blockToMoveUp.GetComponent<RectTransform>().anchoredPosition = startPosition;
@@ -147,6 +147,7 @@ public class gamemanagement : MonoBehaviour {
     }
     public void clockChanger()
     {
+        Color alph = nightSky.GetComponent<Image>().color;
         dayText.text = day.ToString();
         if (timeOfDay < 12)
         {
@@ -154,6 +155,20 @@ public class gamemanagement : MonoBehaviour {
             {
                 if (t == timeOfDay) { kello.sprite = timeVisuals[t]; }
             }
+
+            if (timeOfDay == 0) { }
+            if (timeOfDay == 1) { alph.a = 0.86f; }
+            if (timeOfDay == 2) { alph.a = 0.72f; }
+            if (timeOfDay == 3) { alph.a = 0.58f; }
+            if (timeOfDay == 4) { alph.a = 0.44f; }
+            if (timeOfDay == 5) { alph.a = 0.30f; }
+            if (timeOfDay == 6) { alph.a = 0.16f; }
+            if (timeOfDay == 7) { alph.a = 0f; }
+            if (timeOfDay == 8) { }
+            if (timeOfDay == 9) { }
+            if (timeOfDay == 10) { }
+            if (timeOfDay == 11) { }
+            if (timeOfDay == 12) { }
         }
         else if(timeOfDay >= 12)
         {
@@ -162,16 +177,32 @@ public class gamemanagement : MonoBehaviour {
             if (timeOfDay == 14) { kello.sprite = timeVisuals[2]; }
             if (timeOfDay == 15) { kello.sprite = timeVisuals[3]; }
             if (timeOfDay == 16) { kello.sprite = timeVisuals[4]; }
-            if (timeOfDay == 17) { kello.sprite = timeVisuals[5]; }
-            if (timeOfDay == 18) { kello.sprite = timeVisuals[6]; }
-            if (timeOfDay == 19) { kello.sprite = timeVisuals[7]; }
-            if (timeOfDay == 20) { kello.sprite = timeVisuals[8]; }
-            if (timeOfDay == 21) { kello.sprite = timeVisuals[9]; }
-            if (timeOfDay == 22) { kello.sprite = timeVisuals[10]; }
-            if (timeOfDay == 23) { kello.sprite = timeVisuals[11]; }
+            if (timeOfDay == 17) { kello.sprite = timeVisuals[5]; alph.a = 0; }
+            if (timeOfDay == 18) { kello.sprite = timeVisuals[6]; alph.a = 0.16f; }
+            if (timeOfDay == 19) { kello.sprite = timeVisuals[7]; alph.a = 0.30f; }
+            if (timeOfDay == 20) { kello.sprite = timeVisuals[8]; alph.a = 0.44f; }
+            if (timeOfDay == 21) { kello.sprite = timeVisuals[9]; alph.a = 0.58f; }
+            if (timeOfDay == 22) { kello.sprite = timeVisuals[10]; alph.a = 0.72f; }
+            if (timeOfDay == 23) { kello.sprite = timeVisuals[11]; alph.a = 0.86f; }
             if (timeOfDay == 24) { kello.sprite = timeVisuals[0]; }
         }
+        nightSky.GetComponent<Image>().color = alph;
+        //skyChanger();
     }
+    /*
+    public void skyChanger()
+    {
+        for (int shadeChangeInt = 0; shadeChangeInt < 24; shadeChangeInt++)
+        {
+            if (shadeChangeInt == timeOfDay)
+            {
+                Color alph = nightSky.GetComponent<Image>().color;
+                alph.a = (10 *0.0024f) * shadeChangeInt;
+                nightSky.GetComponent<Image>().color = alph;
+                Debug.Log(alph);
+            }
+        }
+    }*/
     public void moneyCounter()
     {
         cashText.text = "Money: " + money;
@@ -408,7 +439,7 @@ public class gamemanagement : MonoBehaviour {
         animation.GetComponent<Image>().enabled = false;
         yield return new WaitForSeconds(1.5f);
         evolvingCanvas.SetActive(false);
-    }
+    }//not used
 }
 [System.Serializable]
 public class Monsters
